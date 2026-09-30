@@ -1,248 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BBC News Style Header</title>
-    <!-- Font Awesome for search/menu icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Taiwan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bbcRed: '#B80000',
+                        bbcDarkRed: '#990000',
+                        bbcBlack: '#141414',
+                        bbcGrayText: '#545658',
+                        bbcLightBg: '#F6F6F6',
+                        bbcBorder: '#E6E6E6',
+                        bbcHover: '#F2F2F2'
+                    },
+                    fontFamily: {
+                        sans: ['BBC Reith Sans', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+                        serif: ['BBC Reith Serif', 'Georgia', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: ReithSans, Helvetica, Arial, sans-serif;
+        /* Custom BBC Specific Typography & Styling */
+        @font-face {
+            font-family: 'BBC Reith Sans';
+            src: local('Arial');
         }
-
+        @font-face {
+            font-family: 'BBC Reith Serif';
+            src: local('Georgia');
+        }
         body {
-            background-color: #f6f6f6;
+            font-family: 'BBC Reith Sans', Helvetica, Arial, sans-serif;
+            color: #141414;
+            background-color: #FFFFFF;
         }
-
-        /* --- 1. TOP GLOBAL BAR (BLACK) --- */
-        .top-bar {
-            background-color: #222222;
-            color: #ffffff;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 16px;
-            font-size: 14px;
+        .article-headline {
+            font-family: 'BBC Reith Serif', Georgia, serif;
+            letter-spacing: -0.01em;
         }
-
-        .top-bar-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+        .bbc-nav-link:hover {
+            border-bottom: 4px solid #B80000;
         }
-
-        /* The iconic 3-block BBC Logo */
-        .bbc-blocks {
-            display: flex;
-            gap: 3px;
-            text-decoration: none;
-        }
-
-        .bbc-blocks span {
-            background-color: #ffffff;
-            color: #000000;
-            font-weight: 900;
-            font-size: 18px;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
-        }
-
-        .account-link {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-left: 1px solid #444;
-            padding-left: 16px;
-        }
-
-        .top-bar-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .top-nav-link {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 4px 8px;
-        }
-
-        .top-nav-link:hover {
-            text-decoration: underline;
-        }
-
-        /* --- 2. MAIN NEWS BRANDING BAR (RED) --- */
-        .news-bar {
-            background-color: #bb1919;
-            color: #ffffff;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 16px;
-            border-bottom: 1px solid #991414;
-        }
-
-        .news-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: #ffffff;
-        }
-
-        .news-title {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            text-transform: uppercase;
-        }
-
-        .search-btn {
-            background-color: transparent;
-            border: none;
-            color: #ffffff;
-            font-size: 18px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-        }
-
-        .search-btn:hover {
-            background-color: #991414;
-        }
-
-        /* --- 3. SUB NAVIGATION MENU (RED / DARK RED) --- */
-        .topic-nav {
-            background-color: #bb1919;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-
-        .topic-nav ul {
-            display: flex;
-            list-style: none;
-            padding: 0 12px;
-            margin: 0;
-        }
-
-        .topic-nav li a {
-            display: inline-block;
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 10px 14px;
-            position: relative;
-        }
-
-        .topic-nav li a:hover {
-            background-color: #991414;
-        }
-
-        .topic-nav li.active a {
-            font-weight: bold;
-        }
-
-        /* Bottom white indicator line for active topic */
-        .topic-nav li.active a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background-color: #ffffff;
-        }
-
-        /* Responsive design for smaller screens */
-        @media (max-width: 768px) {
-            .top-bar-right .top-nav-link {
-                display: none;
-            }
-            .news-title {
-                font-size: 22px;
-            }
+        .subnav-link:hover {
+            border-bottom: 3px solid #B80000;
         }
     </style>
 </head>
-<body>
+<body class="bg-white text-bbcBlack antialiased">
 
-    <header>
-        <!-- 1. Top Global Bar -->
-        <div class="top-bar">
-            <div class="top-bar-left">
-                <a href="#" class="bbc-blocks" aria-label="BBC Home">
-                    <span>B</span>
-                    <span>B</span>
-                    <span>C</span>
+    <!-- ================================================================= -->
+    <!-- 1. BBC GLOBAL HEADER                                             -->
+    <!-- ================================================================= -->
+    <header class="border-b border-bbcBorder bg-white sticky top-0 z-50">
+        <!-- Top Utility Bar -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between border-b border-bbcBorder text-sm">
+            <div class="flex items-center space-x-6">
+                <!-- BBC Logo -->
+                <a href="https://www.bbc.com" class="flex items-center space-x-1 focus:outline-none" aria-label="BBC Homepage">
+                    <div class="bg-black text-white font-bold px-2 py-0.5 text-lg">B</div>
+                    <div class="bg-black text-white font-bold px-2 py-0.5 text-lg">B</div>
+                    <div class="bg-black text-white font-bold px-2 py-0.5 text-lg">C</div>
                 </a>
-                <a href="#" class="account-link">
-                    <i class="fa-regular fa-circle-user"></i>
-                    <span>Sign in</span>
+
+                <!-- Sign In Button -->
+                <a href="https://account.bbc.com/signin" class="hidden sm:flex items-center space-x-2 font-semibold hover:underline">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    <span>Přihlásit se</span>
                 </a>
             </div>
-            
-            <div class="top-bar-right">
-                <a href="#" class="top-nav-link">Home</a>
-                <a href="#" class="top-nav-link">News</a>
-                <a href="#" class="top-nav-link">Sport</a>
-                <a href="#" class="top-nav-link">Business</a>
-                <a href="#" class="top-nav-link">Innovation</a>
-                <a href="#" class="top-nav-link">Culture</a>
-                <a href="#" class="top-nav-link">Travel</a>
+
+            <!-- Primary Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-1 h-full font-semibold text-sm">
+                <a href="https://www.bbc.com" class="bbc-nav-link h-full flex items-center px-3">Home</a>
+                <a href="https://www.bbc.com/news" class="bbc-nav-link h-full flex items-center px-3 border-b-4 border-bbcRed">Zprávy</a>
+                <a href="https://www.bbc.com/sport" class="bbc-nav-link h-full flex items-center px-3">Sport</a>
+                <a href="https://www.bbc.com/earth" class="bbc-nav-link h-full flex items-center px-3">Svět</a>
+                <a href="https://www.bbc.com/innovation" class="bbc-nav-link h-full flex items-center px-3">Inovace</a>
+                <a href="https://www.bbc.com/culture" class="bbc-nav-link h-full flex items-center px-3">Kultura</a>
+                <a href="https://www.bbc.com/travel" class="bbc-nav-link h-full flex items-center px-3">Cestování</a>
+            </nav>
+
+            <!-- Search Button -->
+            <div class="flex items-center space-x-4">
+                <a href="https://www.bbc.com/search" class="flex items-center space-x-1 bg-bbcLightBg hover:bg-bbcHover px-3 py-1.5 rounded-sm text-xs font-semibold">
+                    <svg class="w-4 h-4 text-bbcBlack" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <span>Vyhledat</span>
+                </a>
             </div>
         </div>
 
-        <!-- 2. Red News Branding Bar -->
-        <div class="news-bar">
-            <a href="#" class="news-brand">
-                <span class="news-title">NEWS</span>
-            </a>
-            <button class="search-btn" aria-label="Search BBC">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <span style="font-size: 14px; font-weight: 600;">Search BBC</span>
-            </button>
+        <!-- News Sub-navigation Bar (BBC Red Accent Header) -->
+        <div class="bg-bbcRed text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-12 overflow-x-auto whitespace-nowrap scrollbar-none">
+                <div class="flex items-center space-x-1 font-bold text-sm">
+                    <a href="https://www.bbc.com/news" class="px-3 py-1.5 hover:bg-bbcDarkRed rounded-sm text-lg tracking-tight">Zprávy</a>
+                    <span class="text-white/40">|</span>
+                    <a href="https://www.bbc.com/news/world" class="subnav-link px-3 py-2 text-white/90 hover:text-white">Svět</a>
+                    <a href="https://www.bbc.com/news/uk" class="subnav-link px-3 py-2 text-white/90 hover:text-white">UK</a>
+                    <a href="https://www.bbc.com/news/business" class="subnav-link px-3 py-2 text-white/90 hover:text-white">Byznys</a>
+                    <a href="https://www.bbc.com/news/technology" class="subnav-link px-3 py-2 text-white/90 hover:text-white">Technika</a>
+                    <a href="https://www.bbc.com/news/science_and_environment" class="subnav-link px-3 py-2 text-white/90 hover:text-white">Věda a životní prostředí</a>
+                    <a href="https://www.bbc.com/news/entertainment_and_arts" class="subnav-link px-3 py-2 text-white/90 hover:text-white">Kultura a umění</a>
+                    <a href="https://www.bbc.com/news/health" class="subnav-link px-3 py-2 text-white/90 hover:text-white">Zdravotní péče</a>
+                </div>
+            </div>
         </div>
-
-        <!-- 3. Topic Sub-Navigation -->
-        <nav class="topic-nav">
-            <ul>
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Israel-Gaza War</a></li>
-                <li><a href="#">War in Ukraine</a></li>
-                <li><a href="#">US & Canada</a></li>
-                <li><a href="#">UK</a></li>
-                <li><a href="#">World</a></li>
-                <li><a href="#">Business</a></li>
-                <li><a href="#">Tech</a></li>
-                <li><a href="#">Science</a></li>
-                <li><a href="#">Entertainment & Arts</a></li>
-            </ul>
-        </nav>
     </header>
 
+    <!-- ================================================================= -->
+    <!-- 2. MAIN ARTICLE CONTAINER                                         -->
+    <!-- ================================================================= -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Changed grid layout to 12-col centered structure without Top Stories sidebar -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            
+            <!-- ARTICLE CONTENT COLUMN (Spans 9 Columns on desktop for clean reading width) -->
+            <article class="lg:col-span-9">
+                
+                <!-- Category Tag / Pillar -->
+                <!-- EDITABLE: Replace category tag below -->
+                <div class="mb-3">
+                    <a href="https://www.bbc.com/news/world" class="text-xs font-bold uppercase tracking-wider text-bbcRed hover:underline">
+                        Světové zprávy
+                    </a>
+                </div>
+
+                <!-- ARTICLE HEADLINE -->
+                <!-- EDITABLE: Replace Article Headline Below -->
+                <h1 class="article-headline text-3xl sm:text-4xl lg:text-5xl font-extrabold text-bbcBlack leading-tight mb-6">
+                    Napětí v Taiwanském průlivu: Čína a USA zvyšují vojenskou přítomnost
+                </h1>
+
+                <!-- AUTHORS / BYLINE SECTION -->
+                <!-- EDITABLE: Replace Author details and role below -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-y border-bbcBorder py-4 mb-6 text-sm text-bbcGrayText gap-2">
+                    <div class="flex items-center space-x-3">
+                        <div class="font-semibold text-bbcBlack">
+                            Autoři: <span class="hover:underline cursor-pointer">Sebastián Ječný, Adam Mészáros, Nikola Pudilová, Kamila Zofia Szczukocka</span>
+                        </div>
+                        <span class="text-bbcBorder">|</span>
+                        <div>BBC News, Taiwan</div>
+                    </div>
+
+                    <!-- Publication Time & Share Controls -->
+                    <div class="flex items-center space-x-4 text-xs font-medium">
+                        <div class="flex items-center space-x-1">
+                            <svg class="w-4 h-4 text-bbcGrayText" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>Před 2 hodinami</span>
+                        </div>
+                        <button onclick="copyArticleLink()" class="flex items-center space-x-1 hover:text-bbcRed focus:outline-none">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 100-2.684 3 3 0 000 2.684zm0 9.316a3 3 0 100-2.684 3 3 0 000 2.684z"/></svg>
+                            <span>Sdílet</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ===================================================== -->
+                <!-- 3. FEATURED MAIN MEDIA / IMAGE BLOCK                 -->
+                <!-- ===================================================== -->
+                <figure class="mb-8">
+                    <!-- EDITABLE: Replace image src and alt text below -->
+                    <div class="overflow-hidden bg-gray-100 rounded-sm">
+                        <img 
+                            src="https://www.heritage.org/sites/default/files/styles/commentary_header_image_1280_945x520/public/images/2024-06/GettyImages-1412788084.jpg?h=c69dd13b&itok=zmDM4j1u" 
+                            alt="Main Article Featured Image" 
+                            class="w-full h-auto object-cover max-h-[500px]"
+                            onerror="this.src='https://placehold.co/1200x675/e6e6e6/545658?text=Main+Article+Image'"
+                        />
+                    </div>
+                    <!-- EDITABLE: Image caption box and copyright tag -->
+                    <!-- <figcaption class="mt-2 text-xs text-bbcGrayText flex items-start space-x-2 border-l-2 border-bbcGrayText/40 pl-3 py-0.5 bg-bbcLightBg p-2">
+                        <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-bbcGrayText" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h0.93a2 2 0 001.664-.89l0.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l0.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <div>
+                            
+                            <span class="font-semibold text-bbcBlack">Caption text goes here:</span> Describe the image context, location, or scene briefly. 
+                            <span class="text-gray-400 ml-1">EPA / BBC NEWS</span>
+                        </div>
+                    </figcaption> -->
+                </figure>
+
+                <!-- ===================================================== -->
+                <!-- 4. ARTICLE BODY CONTENT & TEMPLATES                   -->
+                <!-- ===================================================== -->
+                <div class="space-y-6 text-lg text-bbcBlack leading-relaxed">
+                    
+                    <!-- Lead Paragraph (Bold modern BBC intro text) -->
+                    <p class="font-bold text-xl sm:text-2xl text-bbcBlack leading-snug">
+                        <!-- EDITABLE LEAD TEXT -->
+                        Zatímco předchozí nerozhodná mezinárodní politika dlouho umožňovala Pekingu stupňovat nátlak na demokratický Tchaj-wan, situace v Tchajwanském průlivu podle analýz České televize ukazuje, jak klíčovou roli hraje odpovědné americké vedení jako odstrašující síla a garant mezinárodního řádu.  
+                    </p>
+
+                    <!-- Standard Paragraph -->
+                    <p>
+                        <!-- EDITABLE TEXT -->
+                        Historický kontext připomíná dlouhodobou snahu Číny o ovládnutí ostrova – čínský prezident Si Ťin-pching v minulosti opakovaně deklaroval, že „sjednocení mateřské země je nezadržitelným dějinným trendem“. V reakci na to Čína v posledních měsících výrazně zintenzivnila operace v tzv. šedé zóně, kdy v blízkosti Tchaj-wanu téměř denně operují čínské stíhačky a válečné lodě s cílem vyčerpávat tchajwanskou obranu.  
+                    </p>
+
+                    <!-- COPY & PASTE PARAGRAPH BLOCK BELOW TO ADD MORE TEXT -->
+                    <p>
+                        Zásadní průlom v napjaté situaci přinesla nedávná jednání na vrcholném zasedání ve Washingtonu, kde se sešli prezidenti obou mocností. Donald Trump při jednání v Bílém domě jasně vymezil hranice, když zdůraznil potřebu zachovat mír, obranu svobodného obchodu a stabilní status quo v Tichomoří. Peking souhlasil s ústupky a diplomatickým jednáním ve Washingtonu výhradně pod drtivým tlakem amerického odhodlání a hrozbou tvrdých ekonomických sankcí.
+                    </p>
+                    <!-- END OF PARAGRAPH BLOCK -->
+
+
+
+                   
+
+
+                    <!-- COPY & PASTE QUOTE BLOCK BELOW -->
+                    <blockquote class="my-8 border-l-4 border-bbcRed pl-4 italic text-xl font-serif text-bbcBlack bg-bbcLightBg py-4 pr-4">
+                        "S prezidentem Si máme skvělý vztah, ale USA budou vždy bránit svobodu a své spojence."
+                        <cite class="block text-sm not-italic font-sans font-bold text-bbcGrayText mt-2">— Donald Trump, prezident USA</cite>
+                    </blockquote>
+                    <!-- END OF QUOTE BLOCK -->
+
+
+                    <!-- COPY & PASTE SECONDARY IMAGE BLOCK BELOW TO ADD SECONDARY IMAGES -->
+                    <figure class="my-8">
+                        <img 
+                            src="https://1gr.cz/fotky/idnes/25/041/cl5/TMPbd5a985a01_26DP_3_USA_TRUMP_TARIFFS.JPG" 
+                            alt="Secondary Article Image" 
+                            class="w-full h-auto rounded-sm"
+                            onerror="this.src='https://placehold.co/1000x562/e6e6e6/545658?text=Secondary+Image'"
+                        />
+                        <figcaption class="mt-2 text-xs text-bbcGrayText border-l-2 border-bbcGrayText/40 pl-3 py-0.5 bg-bbcLightBg p-2">
+                            <span class="font-semibold text-bbcBlack">Donalt trump držící tabulku s přehledem cel</span> 
+                        </figcaption>
+                    </figure>
+                    <!-- END OF SECONDARY IMAGE BLOCK -->
+
+
+                    <p>
+                        Zprávy zpravodajských služeb analyzované ČT24 potvrzují, že Čína aktuálně neplánuje okamžitou vojenskou invazi, ale dává přednost postupnému nátlaku. Tento posun v čínské strategii byl však způsoben výhradně rázným rozhodnutím amerického prezidenta o schválení nového masivního balíku vojenské pomoci pro Tchaj-wan. Tchaj-wan pod vedením Laje Čching-tea reaguje navyšováním obranného rozpočtu a prováděním cvičení na ochranu přístavů a infrastruktury. Česká televize rovněž informovala o zapojení dalších demokratických partnerů, jako bylo proplutí japonského torpédoborce průlivem k zajištění svobody plavby. 
+                    </p>
+
+                    <p>
+                        Nicméně všechna tato opatření by byla zcela zbytečná bez technologické převahy amerických zbraňových systémů, které dělají z jakéhokoliv čínského pokusu o blokádu předem prohranou sebevraždu. Zatímco Evropská unie včetně České republiky se pouze pohodlně veze pod americkým bezpečnostním deštníkem a sama k reálné obraně přispívá jen prázdnými deklaracemi, Spojené státy vystupují jako spolehlivý strážce demokracie v Tichomoří, který dokáže efektivně kombinovat sílu s diplomacií a udržet mír.
+                    </p>
+                    
+
+
+                    <figure class="my-8">
+                        <img 
+                            src="https://fs2-ct24.ceskatelevize.cz/image/YjY3NDU5ZGZhMjY4MmE3ME8bkL2Xyj37yYfIeXpB3qzvqIJiDjSkY-N5SSBJ0dEna_eAvHGMQYjlB9K2XlVy7HIHOGGBFOKJ0lpJ10BuWzLNWX61uTJ8lZfv4pHhZZRrmhCVnNB_FWsk697IsTF3iubaIWz2_1K0ZBQfHDJJVG4Z3fkpMD_MhHMbR-YX6GqT.JPG?width=1280" 
+                            alt="Secondary Article Image" 
+                            class="w-full h-auto rounded-sm"
+                            onerror="this.src='https://placehold.co/1000x562/e6e6e6/545658?text=Secondary+Image'"
+                        />
+
+                    </figure>
+                    
+                </div>
+
+                <!-- Related Topics / Tags -->
+                <div class="mt-12 pt-6 border-t border-bbcBorder">
+                    <h3 class="text-xs font-bold uppercase text-bbcGrayText tracking-wider mb-3">Spojené témata</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://www.bbc.com/news" class="px-3 py-1.5 bg-bbcLightBg hover:bg-bbcHover text-xs font-semibold rounded-sm transition">Světové zprávy</a>
+                        <a href="https://www.bbc.com/news" class="px-3 py-1.5 bg-bbcLightBg hover:bg-bbcHover text-xs font-semibold rounded-sm transition">Technologie</a>
+                        <a href="https://www.bbc.com/news" class="px-3 py-1.5 bg-bbcLightBg hover:bg-bbcHover text-xs font-semibold rounded-sm transition">Politika</a>
+                    </div>
+                </div>
+
+            </article>
+
+            <!-- ===================================================== -->
+            <!-- 5. SIDEBAR (FEATURED COVERAGE ONLY)                   -->
+            <!-- ===================================================== -->
+            <aside class="lg:col-span-3 border-t lg:border-t-0 lg:border-l border-bbcBorder pt-8 lg:pt-0 lg:pl-8">
+                <!-- Featured Sidebar Box -->
+                <div class="bg-bbcLightBg p-4 border border-bbcBorder rounded-sm">
+                    <span class="text-xs font-bold text-bbcRed uppercase"></span>
+                    <h3 class="font-bold text-lg text-bbcBlack mt-1 mb-2">Další články od BBC</h3>
+                    <p class="text-xs text-bbcGrayText mb-3">Prozkoumejte obsáhlé zprávy, vizuální příběhy založené na datech a odborné komentáře našich zpravodajů.</p>
+                    <a href="https://www.bbc.com/news" class="inline-block text-xs font-bold text-bbcBlack hover:text-bbcRed hover:underline">Přečtěte si celé zpravodajství →</a>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- ================================================================= -->
+    <!-- 6. BBC FOOTER                                                     -->
+    <!-- ================================================================= -->
+    <footer class="bg-bbcBlack text-white mt-16 border-t-4 border-bbcRed">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            
+            <!-- BBC Logo -->
+            <div class="flex items-center space-x-1 mb-6">
+                <div class="bg-white text-black font-bold px-2 py-0.5 text-lg">B</div>
+                <div class="bg-white text-black font-bold px-2 py-0.5 text-lg">B</div>
+                <div class="bg-white text-black font-bold px-2 py-0.5 text-lg">C</div>
+            </div>
+
+            <!-- Footer Navigation Links -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 text-xs font-semibold pb-8 border-b border-gray-800">
+                <a href="https://www.bbc.com" class="hover:underline">Home</a>
+                <a href="https://www.bbc.com/news" class="hover:underline">Zprávy</a>
+                <a href="https://www.bbc.com/sport" class="hover:underline">Sport</a>
+                <a href="https://www.bbc.com/earth" class="hover:underline">Země</a>
+                <a href="https://www.bbc.com/innovation" class="hover:underline">Inovace</a>
+                <a href="https://www.bbc.com/culture" class="hover:underline">Kultura</a>
+                <a href="https://www.bbc.com/travel" class="hover:underline">Cestování</a>
+                <a href="https://www.bbc.com/aboutthebbc" class="hover:underline">About the BBC</a>
+                <a href="https://www.bbc.com/usingthebbc/terms" class="hover:underline">Terms of Use</a>
+                <a href="https://www.bbc.com/usingthebbc/privacy" class="hover:underline">Privacy Policy</a>
+                <a href="https://www.bbc.com/usingthebbc/cookies" class="hover:underline">Cookies</a>
+                <a href="https://www.bbc.com/accessibility" class="hover:underline">Accessibility Help</a>
+            </div>
+
+            <!-- Copyright info -->
+            <div class="pt-6 text-xs text-gray-400">
+                <p>&copy; Toto není vlastnickým obsahem BBC.  <span class="hover:underline cursor-pointer"></span></p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Simple Utility Script -->
+    <script>
+        function copyArticleLink() {
+            // Safe copy to clipboard helper
+            const currentUrl = window.location.href;
+            const tempInput = document.createElement('input');
+            document.body.appendChild(tempInput);
+            tempInput.value = currentUrl;
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            
+            // Temporary feedback notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 right-4 bg-bbcBlack text-white text-xs px-4 py-2 rounded shadow-lg z-50';
+            notification.textContent = 'Odkaz zkopírován!';
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 2500);
+        }
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
